@@ -21,9 +21,9 @@ public class Deadlock {
     public static class Thread1 implements Runnable {
         public void run() {
             synchronized (lock1){
-                System.out.println(Thread.currentThread().getName() + " locked reource 1");
+                System.out.println("Thread 1 locked resource 1");
 
-                // Wait so that thread2 can acquire lock2
+                // Wait so that Thread 2 can acquire lock 2
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -33,7 +33,7 @@ public class Deadlock {
                 // Thread 1 Should never gain access because it must wait
                 // for Thread 2 to give up lock 2 causing deadlock
                 synchronized (lock2){
-                    System.out.println(Thread.currentThread().getName() + " locked reource 2");
+                    System.out.println("Thread 1 locked resource 2");
                 }
             }
         }
@@ -43,12 +43,12 @@ public class Deadlock {
     public static class Thread2 implements Runnable {
         public void run() {
             synchronized (lock2){
-                System.out.println(Thread.currentThread().getName() + " locked reource 2");
+                System.out.println("Thread 2 locked resource 2");
 
                 // Thread 2 Should never gain access because it must wait
                 // for Thread 1 to give up lock 1 causing deadlock
                 synchronized (lock1){
-                    System.out.println(Thread.currentThread().getName() + " locked reource 1");
+                    System.out.println("Thread 2 locked resource 1");
                 }
             }
         }
